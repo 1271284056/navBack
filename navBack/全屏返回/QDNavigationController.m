@@ -58,10 +58,12 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     if (isPanGesture && [viewController respondsToSelector:@selector(QDNavigationControllerEnabled)]) {
-        [viewController performSelector:@selector(QDNavigationControllerEnabled)];
+        id isNavBackEnable = [viewController performSelector:@selector(QDNavigationControllerEnabled)];
+        if (isNavBackEnable == NO) {
+            return NO;
+        }
     }
 #pragma clang diagnostic pop
-    NSLog(@"--> %f  %f", [self.pan translationInView:self.view].x,[self.pan translationInView:[self.viewControllers lastObject].view].x);
     //处理根视图左边缘侧滑 dismiss
     if (self.viewControllers.count == 1
         && isPanGesture
