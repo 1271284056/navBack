@@ -64,20 +64,10 @@
     }
 #pragma clang diagnostic pop
     
-    //处理根视图左边缘侧滑 dismiss
-    //    if (self.viewControllers.count == 1
-    //        && isPanGesture
-    //        && [self.pan translationInView:[self.viewControllers lastObject].view].x > 3
-    //        && point.x <= 30) {
-    //        [self popOrDissMiss];
-    //        return NO;
-    //    }
-    
     //有符合条件的ScrollView 特殊处理
     BOOL hasScroll = NO;
     //是否可以全屏返回
     BOOL needPop = NO;
-    //    if (self.viewControllers.count > 1) {
     for (UIView *subVi in [self.viewControllers lastObject].view.subviews) {
         //这个scrollview包含这点 往右滑 contentSize宽度大于屏幕宽度 在最左边时候 系统手势被屏蔽 手动pop
         if ([subVi isKindOfClass:NSClassFromString(@"UIScrollView")]
@@ -102,7 +92,6 @@
             }
         }
     }
-    //    }
     
     if (self.viewControllers.count > 1 && (hasScroll == NO || needPop == YES)) {
         if ([self needGoback] == NO) {
