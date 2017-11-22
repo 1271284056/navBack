@@ -43,6 +43,7 @@
     self.needDissMiss = YES;
 }
 
+
 //手势是否生效
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     CGPoint point = [gestureRecognizer locationInView:self.view];
@@ -64,44 +65,44 @@
 #pragma clang diagnostic pop
     
     //处理根视图左边缘侧滑 dismiss
-    if (self.viewControllers.count == 1
-        && isPanGesture
-        && [self.pan translationInView:[self.viewControllers lastObject].view].x > 3
-        && point.x <= 30) {
-        [self popOrDissMiss];
-        return NO;
-    }
+    //    if (self.viewControllers.count == 1
+    //        && isPanGesture
+    //        && [self.pan translationInView:[self.viewControllers lastObject].view].x > 3
+    //        && point.x <= 30) {
+    //        [self popOrDissMiss];
+    //        return NO;
+    //    }
     
     //有符合条件的ScrollView 特殊处理
     BOOL hasScroll = NO;
     //是否可以全屏返回
     BOOL needPop = NO;
-    if (self.viewControllers.count > 1) {
-        for (UIView *subVi in [self.viewControllers lastObject].view.subviews) {
-            //这个scrollview包含这点 往右滑 contentSize宽度大于屏幕宽度 在最左边时候 系统手势被屏蔽 手动pop
-            if ([subVi isKindOfClass:NSClassFromString(@"UIScrollView")]
-                && ((UIScrollView *)subVi).contentSize.width > kScreenWidth
+    //    if (self.viewControllers.count > 1) {
+    for (UIView *subVi in [self.viewControllers lastObject].view.subviews) {
+        //这个scrollview包含这点 往右滑 contentSize宽度大于屏幕宽度 在最左边时候 系统手势被屏蔽 手动pop
+        if ([subVi isKindOfClass:NSClassFromString(@"UIScrollView")]
+            && ((UIScrollView *)subVi).contentSize.width > kScreenWidth
+            ){
+            hasScroll = YES;
+            //scrollView的ContentSize 转成frame判断触摸点是否在scrollView上
+            CGSize scrollContentSize = ((UIScrollView *)subVi).contentSize;
+            CGRect contentSizeRect = CGRectMake(0, 0, scrollContentSize.width, scrollContentSize.height);
+            //scrollView在最左边 触摸点在scrollView上 可以全屏返回
+            if ( ((UIScrollView *)subVi).contentOffset.x == 0
+                && CGRectContainsPoint( contentSizeRect, [self.view convertPoint:point toView:subVi])
                 ){
-                hasScroll = YES;
-                //scrollView的ContentSize 转成frame判断触摸点是否在scrollView上
-                CGSize scrollContentSize = ((UIScrollView *)subVi).contentSize;
-                CGRect contentSizeRect = CGRectMake(0, 0, scrollContentSize.width, scrollContentSize.height);
-                //scrollView在最左边 触摸点在scrollView上 可以全屏返回
-                if ( ((UIScrollView *)subVi).contentOffset.x == 0
-                    && CGRectContainsPoint( contentSizeRect, [self.view convertPoint:point toView:subVi])
-                    ){
-                    [((UIScrollView *)subVi).panGestureRecognizer requireGestureRecognizerToFail:self.pan];
-                    needPop = YES;
-                    break;
-                }
-                //触摸点不在scrollView上 可以全屏返回
-                if (hasScroll == YES && !CGRectContainsPoint( contentSizeRect, [self.view convertPoint:point toView:subVi])) {
-                    needPop = YES;
-                    break;
-                }
+                [((UIScrollView *)subVi).panGestureRecognizer requireGestureRecognizerToFail:self.pan];
+                needPop = YES;
+                break;
+            }
+            //触摸点不在scrollView上 可以全屏返回
+            if (hasScroll == YES && !CGRectContainsPoint( contentSizeRect, [self.view convertPoint:point toView:subVi])) {
+                needPop = YES;
+                break;
             }
         }
     }
+    //    }
     
     if (self.viewControllers.count > 1 && (hasScroll == NO || needPop == YES)) {
         if ([self needGoback] == NO) {
@@ -110,10 +111,14 @@
             return YES;
         }
     }else{
+        if (self.viewControllers.count == 1
+            && (hasScroll == NO || needPop == YES)
+            && [self.pan translationInView:[self.viewControllers lastObject].view].x > 3) {
+            [self popOrDissMiss];
+        }
         return NO;
     }
 }
-
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     //子控制器创建返回按钮
     if (self.viewControllers.count >= 1 ) {
