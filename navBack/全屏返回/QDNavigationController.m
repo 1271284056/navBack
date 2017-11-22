@@ -102,7 +102,8 @@
     }else{
         if (self.viewControllers.count == 1
             && (hasScroll == NO || needPop == YES)
-            && [self.pan translationInView:[self.viewControllers lastObject].view].x > 3) {
+            && [self.pan translationInView:[self.viewControllers lastObject].view].x > 2) {
+            //根控制器 符合条件 dismiss
             [self popOrDissMiss];
         }
         return NO;
