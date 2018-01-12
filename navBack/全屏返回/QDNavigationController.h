@@ -4,7 +4,7 @@
 //
 //  Created by JiangDong Zhang on 2017/9/12.
 //  Copyright © 2017年 Qiduo Tech, Inc. All rights reserved.
-//
+//  系统侧滑效果(导航栏渐变)
 
 #import <UIKit/UIKit.h>
 
