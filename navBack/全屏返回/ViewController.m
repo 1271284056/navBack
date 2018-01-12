@@ -13,6 +13,7 @@
 #import "ViewController.h"
 #import "TestViewController.h"
 #import "QDNavigationController.h"
+#import "JDNavController.h"
 
 @interface ViewController ()
 
@@ -33,7 +34,12 @@
 
 - (void)btnclick{
     TestViewController *vc1 = [[TestViewController alloc] init];
-    QDNavigationController *naviController = [[QDNavigationController alloc] initWithRootViewController:vc1];
+    
+//    QDNavigationController *naviController = [[QDNavigationController alloc] initWithRootViewController:vc1];
+//    naviController.needDissMiss = YES;
+//    [self presentViewController:naviController animated:YES completion:nil];
+    
+    JDNavController *naviController = [[JDNavController alloc] initWithRootViewController:vc1];
     naviController.needDissMiss = YES;
     [self presentViewController:naviController animated:YES completion:nil];
 

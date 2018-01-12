@@ -18,6 +18,7 @@
 		E61605FD1F693DD800B2B1ED /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61605FC1F693DD800B2B1ED /* TestViewController.m */; };
 		E61606001F693E0C00B2B1ED /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = E61605FF1F693E0C00B2B1ED /* ViewController2.m */; };
 		E61606031F693E7900B2B1ED /* ViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = E61606021F693E7900B2B1ED /* ViewController1.m */; };
+		E67F188F2008BD2C00AA8759 /* JDNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67F188E2008BD2C00AA8759 /* JDNavController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,8 @@
 		E61605FF1F693E0C00B2B1ED /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
 		E61606011F693E7900B2B1ED /* ViewController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController1.h; sourceTree = "<group>"; };
 		E61606021F693E7900B2B1ED /* ViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController1.m; sourceTree = "<group>"; };
+		E67F188D2008BD2C00AA8759 /* JDNavController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNavController.h; sourceTree = "<group>"; };
+		E67F188E2008BD2C00AA8759 /* JDNavController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JDNavController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +77,8 @@
 			children = (
 				E61605F61F693CFF00B2B1ED /* QDNavigationController.h */,
 				E61605F71F693CFF00B2B1ED /* QDNavigationController.m */,
+				E67F188D2008BD2C00AA8759 /* JDNavController.h */,
+				E67F188E2008BD2C00AA8759 /* JDNavController.m */,
 				E61605E21F693CEA00B2B1ED /* AppDelegate.h */,
 				E61605E31F693CEA00B2B1ED /* AppDelegate.m */,
 				E61605E51F693CEA00B2B1ED /* ViewController.h */,
@@ -177,6 +182,7 @@
 				E61605F81F693CFF00B2B1ED /* QDNavigationController.m in Sources */,
 				E61606031F693E7900B2B1ED /* ViewController1.m in Sources */,
 				E61605E71F693CEA00B2B1ED /* ViewController.m in Sources */,
+				E67F188F2008BD2C00AA8759 /* JDNavController.m in Sources */,
 				E61605E41F693CEA00B2B1ED /* AppDelegate.m in Sources */,
 				E61605E11F693CEA00B2B1ED /* main.m in Sources */,
 				E61605FD1F693DD800B2B1ED /* TestViewController.m in Sources */,
