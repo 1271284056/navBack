@@ -41,7 +41,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.screenShotsList = [NSMutableArray new];
-        self.needDissMiss = YES;
+        self.needDissMiss = NO;
     }
     return self;
 }
@@ -77,7 +77,7 @@
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    // 其它滑动手势必须等kkNavigationController识别失败，才允许启用
+    // 两个Pan手势不能同时触发
     if ([otherGestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         return YES;
     } else {
@@ -94,6 +94,10 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     //是否是pan手势
     BOOL isPanGesture = ([self.pan isEqual:gestureRecognizer]);
+    if (!isPanGesture) {//非self.pan拖拽手势,不特殊处理
+        return YES;
+    }
+    
     CGPoint point = [self.pan velocityInView:self.pan.view];
 
     // 如果是向左滑动，或者y轴的分量过大，那么不启用效果
@@ -107,11 +111,22 @@
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     
     //如果子控制器里实现关闭侧滑手势方法return NO. 手势不生效.
-    if (isPanGesture && [viewController respondsToSelector:@selector(QDNavigationControllerEnabled)]) {
+    if ([viewController respondsToSelector:@selector(QDNavigationControllerEnabled)]) {
         if ([viewController performSelector:@selector(QDNavigationControllerEnabled)] == NO) {
             return NO;
         }
     }
+    
+    //一定区域内可以滑动,或者webView等scrollView层级比较深的页面,实现QDNavigationControllerAllowDragBack
+    if ([viewController respondsToSelector:@selector(QDNavigationControllerAllowDragBack:)]) {
+        if ([viewController performSelector:@selector(QDNavigationControllerAllowDragBack:) withObject:gestureRecognizer] == NO) {
+            return NO;
+        }else{
+            return YES;
+        }
+    }
+    
+    
     //滑动时候,向右滑动在横向滑动的scrollView的话,滑动到scrollView的contentSize的x == 0时,(最左边)才能触发侧滑手势
     //有符合条件的ScrollView 特殊处理
     BOOL hasScroll = NO;

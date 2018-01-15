@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"test";
     [self setUpUI];
 
@@ -62,6 +62,9 @@
     }
     [self addChildViewController:vc2];
     [self.scrollView addSubview:vc2.view];
+    
+    
+
 }
 
 

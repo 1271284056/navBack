@@ -5,6 +5,9 @@
 //  Created by JiangDong Zhang on 2017/9/13.
 //  Copyright © 2017年 zhizhangyi. All rights reserved.
 //
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+//屏幕高度
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
 #import "ViewController2.h"
 
@@ -19,6 +22,10 @@
     self.view.backgroundColor = [UIColor brownColor];
     self.navigationItem.title = @"222";
     // Do any additional setup after loading the view.
+    
+    
+  
+
 }
 
 

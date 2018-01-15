@@ -40,7 +40,7 @@
     [self.view addGestureRecognizer:pan];
     //去掉原来的边缘侧滑手势
     self.interactivePopGestureRecognizer.enabled = NO;
-    self.needDissMiss = YES;
+    self.needDissMiss = NO;
 }
 
 
